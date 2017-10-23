@@ -3,6 +3,7 @@ var Blox = artifacts.require("./Blox.sol");
 contract('Blox', function(accounts) {
 
   it("should have data in each field for first event", async function() {
+
     let instance = await Blox.new({from: accounts[0]});
 
     let ticketPrice = "52343.95";
@@ -25,6 +26,15 @@ contract('Blox', function(accounts) {
 
     let ed = await selectedEvent[4];
     assert.isTrue(ed == "Nice office building near the beach");
+
+    // instance.newBlox().watch(function(error, result) {
+    //   if (!error) {
+    //       console.log(result);
+    //   } else {
+    //       console.log("Error!" + error);
+    //   }
+    // })
+
   });
 
   it("should have data in each field for second event", async function() {
@@ -51,6 +61,15 @@ contract('Blox', function(accounts) {
 
     let ed = await selectedEvent[4];
     assert.isTrue(ed == "On the Chain");
+
+    // instance.newBlox().watch(function(error, result) {
+    //   if (!error) {
+    //       console.log(result);
+    //   } else {
+    //       console.log("Error!" + error);
+    //   }
+    // })
+
   });
 
 
