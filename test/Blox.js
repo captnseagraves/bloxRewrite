@@ -1,25 +1,30 @@
-var MLSToken = artifacts.require("./Blox.sol");
+var Blox = artifacts.require("./Blox.sol");
 
-contract('MLSToken', function(accounts) {
+contract('Blox', function(accounts) {
 
-  let mlsNumber = 123456789;
-  homeAddress = "4242 Artisan Dr. Boulder, CO 80302";
-  valueOfHome = 1000000;
+  let ticketPrice = "52343.95";
+  let eventName = "BCGDV";
+  let eventLocation = "Manhattan Beach";
+  let eventDescription = "Nice office building near the beach";
 
-  it("should have value for home", async function() {
-    // config
-    let token = await MLSToken.new({from: accounts[0]});
+  it("should have data in each field", async function() {
 
-    await token.MLSCreate(mlsNumber, homeAddress, valueOfHome);
+    let instance = await Blox.new({from: accounts[0]});
 
-    let mlsNum = await token.mlsNumber.call();
-    assert.isTrue(mlsNum == 123456789);
+    await instance.createBlox(ticketPrice, eventName, eventLocation, eventDescription);
 
-    let home = await token.homeAddress.call();
-    assert.isTrue(home == "4242 Artisan Dr. Boulder, CO 80302");
+    let selectedEvent = await instance.getBlox.call(1);
 
-    let value = await token.valueOfHome.call();
-    assert.isTrue(value == 1000000);
+    let tp = selectedEvent[1];
+    assert.isTrue(tp == 52343.95);
 
+    // let en = await instance.eventName.call();
+    // assert.isTrue(en == "BCGDV");
+    //
+    // let el = await instance.eventLocation.call();
+    // assert.isTrue(el == "Manhattan Beach");
+    //
+    // let ed = await instance.eventDescription.call();
+    // assert.isTrue(ed == "Nice office building near the beach");
   });
 })
