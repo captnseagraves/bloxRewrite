@@ -12,12 +12,8 @@ contract Blox {
     string eventLocation;
   }
 
-  /*bytes32 musicEventHash;*/
-
   uint numEvents = 0;
   mapping (uint => musicEvent) public allEvents;
-
-
 
   function createBlox(
     string _ticketPrice,
@@ -27,22 +23,19 @@ contract Blox {
     ) public {
 
     numEvents++;
-    musicEvent me = allEvents[numEvents];
-    me.owner = msg.sender;
-    me.ticketPrice = _ticketPrice;
-    me.eventName = _eventName;
-    me.eventLocation = _eventLocation;
-    me.eventDescription = _eventDescription;
+    musicEvent memory me = musicEvent(msg.sender, _ticketPrice, _eventName, _eventDescription, _eventLocation);
+    allEvents[numEvents] = me;
 
     newBlox(msg.sender, me.ticketPrice, me.eventName, me.eventDescription, me.eventLocation);
   }
 
-  function getBlox(uint BloxId) constant returns (
+  function getBlox(uint BloxId) public constant returns (
     address owner,
     string ticketPrice,
     string eventName,
     string eventDescription,
     string eventLocation) {
+
       return (
         allEvents[BloxId].owner,
         allEvents[BloxId].ticketPrice,

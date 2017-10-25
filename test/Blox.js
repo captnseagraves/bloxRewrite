@@ -15,6 +15,8 @@ contract('Blox', function(accounts) {
 
     let selectedEvent = await instance.getBlox.call(1);
 
+    console.log(selectedEvent[1]);
+
     let tp = selectedEvent[1];
     assert.isTrue(tp == 52343.95);
 
